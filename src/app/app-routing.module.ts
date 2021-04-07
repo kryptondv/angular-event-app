@@ -7,16 +7,35 @@ import { EventRouteActivatorService } from './events/event-details/event-route-a
 import { EventsListComponent } from './events/events-list/events-list.component';
 
 const routes: Routes = [
-  { path: 'events/new', component: CreateEventComponent },
+  {
+    path: 'events/new',
+    component: CreateEventComponent,
+    canDeactivate: ['canDeactivateCreateEvent'],
+  },
   { path: 'events', component: EventsListComponent },
-  { path: 'events/:id', component: EventDetailsComponent, canActivate: [EventRouteActivatorService] },
+  {
+    path: 'events/:id',
+    component: EventDetailsComponent,
+    canActivate: [EventRouteActivatorService],
+  },
   { path: '404', component: Error404Component },
   { path: '', redirectTo: '/events', pathMatch: 'full' },
-  { path: '**', redirectTo: '404'}, 
+  { path: '**', redirectTo: '404' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [
+    {
+      provide: 'canDeactivateCreateEvent',
+      useValue: (component: CreateEventComponent) =>
+        component.isDirty
+          ? window.confirm(
+              'You have not saved this event, do you really want to cancel?'
+            )
+          : true,
+    },
+  ],
 })
 export class AppRoutingModule {}
