@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
+interface IFormValues {
+  userName: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -7,11 +12,11 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {}
 
-  login(form: NgForm) {
-    console.log(form);
+  login(formValues: IFormValues) {
+    this.authService.loginUser(formValues.userName, formValues.password);
   }
 }
