@@ -317,11 +317,11 @@ export class EventsService {
   ];
   constructor() {}
 
-  getEvents() {
+  getEvents(): IEvent[] {
     return this.events;
   }
 
-  getEvent(id: number) {
+  getEvent(id: number): IEvent | undefined {
     return this.events.find((event) => (event.id === id));
   }
 }
