@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'src/app/common/toastr.service';
+import { IEvent } from '../event.model';
 import { EventsService } from '../events.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { EventsService } from '../events.service';
   styleUrls: ['./events-list.component.scss'],
 })
 export class EventsListComponent implements OnInit {
-  events: any[];
+  events: IEvent[];
   constructor(private eventsService: EventsService, private toastrService: ToastrService){}
 
   ngOnInit(): void {
