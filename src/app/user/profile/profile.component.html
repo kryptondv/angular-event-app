@@ -6,25 +6,45 @@
           autocomplete="off"
           novalidate
           (ngSubmit)="saveProfile(profileForm.value)">
-      <div class="form-group">
+      <div class="form-group"
+           [ngClass]="{'error': profileForm.controls.firstName.invalid && profileForm.controls.firstName.touched}">
         <label for="firstName">First Name:</label>
+        <span *ngIf="profileForm.controls.firstName.invalid && 
+              (profileForm.controls.firstName.touched || mouseOverSave) && 
+              profileForm.controls.firstName.errors?.required"
+              class="warning">Required</span>
+        <span *ngIf="profileForm.controls.firstName.invalid &&
+              (profileForm.controls.firstName.touched || mouseOverSave) &&
+              profileForm.controls.firstName.errors?.pattern"
+              class="warning">Must start with a letter</span>
         <input formControlName="firstName"
                id="firstName"
                type="text"
                class="form-control"
                placeholder="First Name..." />
       </div>
-      <div class="form-group">
+      <div class="form-group"
+           [ngClass]="{'error': profileForm.controls.lastName.invalid && profileForm.controls.lastName.touched}">
         <label for="lastName">Last Name:</label>
+        <span *ngIf="profileForm.controls.lastName.invalid &&
+             (profileForm.controls.lastName.touched || mouseOverSave) &&
+             profileForm.controls.lastName.errors?.required"
+              class="warning">Required</span>
+        <span *ngIf="profileForm.controls.lastName.invalid &&
+             (profileForm.controls.lastName.touched || mouseOverSave) &&
+             profileForm.controls.lastName.errors?.pattern"
+              class="warning">Must start with a letter</span>
         <input formControlName="lastName"
                id="lastName"
                type="text"
                class="form-control"
                placeholder="Last Name..." />
       </div>
-
-      <button type="submit"
-              class="btn btn-primary">Save</button>
+      <span (mouseenter)="mouseOverSave = true"
+            (mouseleave)="mouseOverSave=false">
+        <button type="submit"
+                class="btn btn-primary">Save</button>
+      </span>
       <button type="button"
               class="btn btn-default"
               (click)="cancel()">Cancel</button>

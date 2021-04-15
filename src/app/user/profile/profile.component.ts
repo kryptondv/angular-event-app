@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-
 
 interface IFormValues {
   firstName: string;
@@ -16,12 +15,19 @@ interface IFormValues {
 })
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
+  mouseOverSave = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    const firstName = new FormControl(this.authService.currentUser.firstName);
-    const lastName = new FormControl(this.authService.currentUser.lastName);
+    const firstName = new FormControl(this.authService.currentUser.firstName, [
+      Validators.required,
+      Validators.pattern('[a-zA-Z.*]'),
+    ]);
+    const lastName = new FormControl(
+      this.authService.currentUser.lastName,
+      Validators.required
+    );
     this.profileForm = new FormGroup({
       firstName,
       lastName,
@@ -33,7 +39,10 @@ export class ProfileComponent implements OnInit {
   }
 
   saveProfile(formValues: IFormValues) {
-    const {firstName, lastName } = formValues;
-    this.authService.updateCurrentUser(firstName, lastName)
+    if (this.profileForm.valid) {
+      const { firstName, lastName } = formValues;
+      this.authService.updateCurrentUser(firstName, lastName);
+      this.router.navigate(['events']);
+    }
   }
 }
