@@ -324,4 +324,10 @@ export class EventsService {
   getEvent(id: number): IEvent | undefined {
     return this.events.find((event) => (event.id === id));
   }
+
+  saveEvent(event: IEvent) {
+    // hardcoded for now, change it
+    event.id = 999;
+    this.events.push(event);
+  }
 }
