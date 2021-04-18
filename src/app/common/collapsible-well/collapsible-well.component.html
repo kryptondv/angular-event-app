@@ -1,0 +1,4 @@
+<div class="well pointable" (click)="toggleContent()">
+  <h4>{{title}}</h4>
+  <ng-content *ngIf="showContent"></ng-content>
+</div>
