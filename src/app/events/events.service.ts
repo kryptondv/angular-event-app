@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IEvent } from './event.model';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
   providedIn: 'root',
@@ -322,12 +323,16 @@ export class EventsService {
   }
 
   getEvent(id: number): IEvent | undefined {
-    return this.events.find((event) => (event.id === id));
+    return this.events.find((event) => event.id === id);
   }
 
-  saveEvent(event: IEvent) {
-    // hardcoded for now, change it
-    event.id = 999;
-    this.events.push(event);
+  saveEvent(event: IEvent): void {
+    const newEvent = { id: uuidv4(), ...event };
+    this.events.push(newEvent);
+  }
+
+  updateEvent(event: IEvent): void {
+    let idx = this.events.findIndex((e) => e.id === event.id);
+    this.events[idx] = event;
   }
 }
