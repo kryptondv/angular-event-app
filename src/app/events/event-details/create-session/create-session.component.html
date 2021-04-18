@@ -56,6 +56,14 @@
             class="warning">Required</span>
       <span *ngIf="abstract.invalid && abstract.touched && abstract.errors?.maxLength"
             class="warning">Maximum length is 400 characters</span>
+      <span *ngIf="abstract.invalid && abstract.dirty && abstract.errors?.restrictedWords?.length"
+            class="warning">Restricted word<ng-container *ngIf="abstract.errors?.restrictedWords.length > 1">s
+        </ng-container>
+        found:
+        <ng-container *ngFor="let word of abstract.errors?.restrictedWords; last as last">{{word}}
+          <ng-container *ngIf="abstract.errors?.restrictedWords.length > 1 && !last">, </ng-container>
+        </ng-container>
+      </span>
       <textarea formControlName="abstract"
                 id="abstract"
                 rows=3

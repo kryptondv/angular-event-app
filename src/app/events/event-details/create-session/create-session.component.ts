@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { restrictedWordsValidator } from 'src/app/common/restricted-words.validator';
 import { ISession } from '../../event.model';
 
 @Component({
@@ -25,6 +26,7 @@ export class CreateSessionComponent implements OnInit {
     this.abstract = new FormControl('', [
       Validators.required,
       Validators.maxLength(400),
+      restrictedWordsValidator(['foo', 'bar']),
     ]);
 
     this.newSessionForm = new FormGroup({
@@ -36,7 +38,7 @@ export class CreateSessionComponent implements OnInit {
     });
   }
 
-  saveSession(formValues: {[key: string]: string }) {
+  saveSession(formValues: { [key: string]: string }) {
     const session: ISession = {
       name: formValues.name,
       duration: +formValues.duration,
