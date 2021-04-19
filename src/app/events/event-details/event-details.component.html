@@ -25,17 +25,23 @@
   </div>
 
   <hr>
-  <div class="row">
+  <div class="row" style="margin-bottom: 10px;">
     <div class="col-md-2">
       <h3 style="margin:0">Sessions</h3>
+    </div>
+    <div class="col-md-7">
+      <button *ngFor="let option of options"
+              class="btn btn-default"
+              [class.active]="filterBy === option"
+              (click)="filterBy = option">{{option[0].toUpperCase() + option.slice(1)}}</button>
     </div>
     <div class="col-md-2">
       <button (click)="addSession()"
               class="btn btn-link">Add session</button>
     </div>
   </div>
-  <ng-container *ngIf="sessions.length && !addMode">
-    <app-session-list [sessions]="sessions"></app-session-list>
+  <ng-container *ngIf="filteredSessions.length && !addMode">
+    <app-session-list [sessions]="filteredSessions"></app-session-list>
   </ng-container>
   <app-create-session *ngIf="addMode"
                       (saveNewSession)="saveNewSession($event)"

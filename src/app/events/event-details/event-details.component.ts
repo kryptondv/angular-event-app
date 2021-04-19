@@ -12,6 +12,8 @@ import { v4 as uuidv4 } from 'uuid';
 export class EventDetailsComponent implements OnInit {
   event: IEvent;
   addMode: boolean;
+  filterBy: string = 'all';
+  options = ['all', 'beginner', 'intermediate', 'advanced'];
 
   constructor(
     private eventsService: EventsService,
@@ -22,15 +24,21 @@ export class EventDetailsComponent implements OnInit {
     this.event = this.eventsService.getEvent(+this.route.snapshot.params.id)!;
   }
 
-  get sessions() {
-    return this.event?.sessions || [];
+  get filteredSessions() {
+    return (
+      this.event?.sessions.filter((session) =>
+        this.filterBy === 'all'
+          ? true
+          : session.level.toLowerCase() === this.filterBy
+      ) || []
+    );
   }
 
-  addSession() {
+  addSession(): void {
     this.addMode = true;
   }
 
-  saveNewSession(session: ISession) {
+  saveNewSession(session: ISession): void {
     const newSession = { id: uuidv4(), ...session };
     this.event.sessions.push(session);
     this.eventsService.updateEvent(this.event);
