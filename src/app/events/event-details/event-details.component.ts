@@ -13,7 +13,9 @@ export class EventDetailsComponent implements OnInit {
   event: IEvent;
   addMode: boolean;
   filterBy: string = 'all';
-  options = ['all', 'beginner', 'intermediate', 'advanced'];
+  filterOptions = ['all', 'beginner', 'intermediate', 'advanced'];
+  sortBy: string = 'name';
+  sortOptions = ['name', 'votes'];
 
   constructor(
     private eventsService: EventsService,
@@ -26,12 +28,20 @@ export class EventDetailsComponent implements OnInit {
 
   get filteredSessions() {
     return (
-      this.event?.sessions.filter((session) =>
-        this.filterBy === 'all'
-          ? true
-          : session.level.toLowerCase() === this.filterBy
-      ) || []
+      this.event?.sessions
+        .sort(this.sortSessions.bind(this))
+        .filter((session) =>
+          this.filterBy === 'all'
+            ? true
+            : session.level.toLowerCase() === this.filterBy
+        ) || []
     );
+  }
+
+  sortSessions(a: ISession, b: ISession): number {
+    return this.sortBy === 'name'
+      ? +(a.name > b.name) || -(a.name < b.name)
+      : b.voters.length - a.voters.length;
   }
 
   addSession(): void {
