@@ -35,7 +35,7 @@
                routerLinkActive="active">Login</a>
             <a *ngIf="isAuthenticated"
                [routerLink]="['user/profile']"
-               routerLinkActive="active">Welcome John</a>
+               routerLinkActive="active">Welcome {{userName}}</a>
           </li>
         </ul>
       </div>
