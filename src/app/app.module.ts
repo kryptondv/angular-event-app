@@ -15,6 +15,9 @@ import {
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-well.component';
 import { DurationPipe } from './common/duration.pipe';
+import { Toastr, TOASTR_TOKEN } from './common/toastr.service';
+
+declare let toastr: Toastr;
 
 @NgModule({
   declarations: [
@@ -31,7 +34,7 @@ import { DurationPipe } from './common/duration.pipe';
     DurationPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [],
+  providers: [{provide: TOASTR_TOKEN, useValue: toastr}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
