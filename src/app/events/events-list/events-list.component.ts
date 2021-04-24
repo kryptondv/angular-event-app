@@ -10,6 +10,7 @@ import { EventsService } from '../events.service';
 })
 export class EventsListComponent implements OnInit {
   events: IEvent[];
+  
   constructor(private eventsService: EventsService, private toastrService: ToastrService){}
 
   ngOnInit(): void {

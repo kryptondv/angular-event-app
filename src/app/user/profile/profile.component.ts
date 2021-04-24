@@ -15,6 +15,7 @@ interface IFormValues {
 })
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
+
   mouseOverSave = false;
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -24,10 +25,12 @@ export class ProfileComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[a-zA-Z]+$'),
     ]);
+
     const lastName = new FormControl(
       this.authService.currentUser.lastName,
       Validators.required
     );
+
     this.profileForm = new FormGroup({
       firstName,
       lastName,
@@ -41,7 +44,9 @@ export class ProfileComponent implements OnInit {
   saveProfile(formValues: IFormValues) {
     if (this.profileForm.valid) {
       const { firstName, lastName } = formValues;
+
       this.authService.updateCurrentUser(firstName, lastName);
+
       this.router.navigate(['events']);
     }
   }

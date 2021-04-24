@@ -11,7 +11,9 @@ import { v4 as uuidv4 } from 'uuid';
 })
 export class EventDetailsComponent implements OnInit {
   event: IEvent;
+  
   addMode: boolean;
+
   filterBy: string = 'all';
   filterOptions = ['all', 'beginner', 'intermediate', 'advanced'];
   sortBy: string = 'name';
@@ -50,8 +52,10 @@ export class EventDetailsComponent implements OnInit {
 
   saveNewSession(session: ISession): void {
     const newSession = { id: uuidv4(), ...session };
-    this.event.sessions.push(session);
+    this.event.sessions.push(newSession);
+
     this.eventsService.updateEvent(this.event);
+    
     this.addMode = false;
   }
 }

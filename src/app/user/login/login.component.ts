@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 interface IFormValues {
   userName: string;
@@ -10,12 +10,10 @@ interface IFormValues {
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   mouseOverLogin = false;
 
   constructor(private authService: AuthService) {}
-
-  ngOnInit(): void {}
 
   login(formValues: IFormValues) {
     this.authService.loginUser(formValues.userName, formValues.password);

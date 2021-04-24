@@ -11,14 +11,13 @@ import { ISession } from '../../event.model';
 export class CreateSessionComponent implements OnInit {
   @Output() saveNewSession = new EventEmitter<ISession>();
   @Output() cancelAddSession = new EventEmitter();
+
   newSessionForm: FormGroup;
   name: FormControl;
   presenter: FormControl;
   duration: FormControl;
   level: FormControl;
   abstract: FormControl;
-
-  constructor() {}
 
   ngOnInit(): void {
     this.name = new FormControl('', Validators.required);
@@ -49,6 +48,7 @@ export class CreateSessionComponent implements OnInit {
       abstract: formValues.abstract,
       voters: [],
     };
+    
     this.saveNewSession.emit(session);
   }
 
