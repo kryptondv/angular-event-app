@@ -11,6 +11,7 @@ import {
   CreateEventComponent,
   CreateSessionComponent,
   SessionListComponent,
+  UpvoteComponent,
 } from './events';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -41,6 +42,7 @@ declare let $: any;
     DurationPipe,
     SimpleModalComponent,
     ModalTriggerDirective,
+    UpvoteComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [

@@ -1,5 +1,11 @@
 <div class="row"
      *ngFor="let session of sessions">
+  <div class="col-md-1">
+    <app-upvote *ngIf="isAuthenticated"
+                (vote)="toggleVote(session)"
+                [count]="session.voters.length"
+                [voted]="userHasVoted(session)"></app-upvote>
+  </div>
   <div class="col-md-10">
     <app-collapsible-well>
       <div slot="title">
