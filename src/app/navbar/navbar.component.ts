@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ISession } from '../events';
+import { EventsService } from '../events/events.service';
 import { AuthService } from '../user/auth.service';
 
 @Component({
@@ -7,13 +9,27 @@ import { AuthService } from '../user/auth.service';
   styleUrls: ['./navbar.component.scss'],
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService) {}
+  searchTerm: string = '';
+  foundSessions: ISession[];
 
-  get isAuthenticated() {
+  constructor(
+    private authService: AuthService,
+    private eventService: EventsService
+  ) {}
+
+  get isAuthenticated(): boolean {
     return this.authService.isAuthenticated;
   }
 
   get userName(): string {
     return this.authService.currentUser.firstName;
+  }
+
+  searchSessions(): void {
+    this.eventService.searchSessions(this.searchTerm).subscribe((sessions: ISession[]) => {
+      this.foundSessions = sessions;
+      console.log(this.foundSessions);
+      
+    });
   }
 }
