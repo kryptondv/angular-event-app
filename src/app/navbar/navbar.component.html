@@ -49,7 +49,8 @@
                  class="form-control"
                  placeholder="Search Sessions">
         </div>
-        <button class="btn btn-default" modalTrigger="simple-modal">
+        <button class="btn btn-default"
+                [modalTrigger]="modalId">
           Search
         </button>
       </form>
@@ -57,7 +58,8 @@
   </div>
 </div>
 
-<app-simple-modal title="Matching Sessions">
+<app-simple-modal title="Matching Sessions"
+                  [modalId]="modalId">
   <div class="list-group">
     <a *ngFor="let session of foundSessions"
        class="list-group-item"

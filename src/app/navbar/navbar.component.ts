@@ -11,6 +11,7 @@ import { AuthService } from '../user/auth.service';
 export class NavbarComponent {
   searchTerm: string = '';
   foundSessions: ISession[];
+  modalId="sessions-modal";
 
   constructor(
     private authService: AuthService,
