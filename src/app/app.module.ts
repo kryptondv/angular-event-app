@@ -11,13 +11,20 @@ import {
   CreateEventComponent,
   CreateSessionComponent,
   SessionListComponent,
-} from './events/index';
+} from './events';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CollapsibleWellComponent } from './common/collapsible-well/collapsible-well.component';
-import { DurationPipe } from './common/duration.pipe';
-import { Toastr, TOASTR_TOKEN } from './common/toastr.service';
+import {
+  CollapsibleWellComponent,
+  DurationPipe,
+  Toastr,
+  TOASTR_TOKEN,
+  JQ_TOKEN,
+  SimpleModalComponent,
+  ModalTriggerDirective 
+} from './common';
 
 declare let toastr: Toastr;
+declare let $: any;
 
 @NgModule({
   declarations: [
@@ -32,9 +39,14 @@ declare let toastr: Toastr;
     SessionListComponent,
     CollapsibleWellComponent,
     DurationPipe,
+    SimpleModalComponent,
+    ModalTriggerDirective,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
-  providers: [{provide: TOASTR_TOKEN, useValue: toastr}],
+  providers: [
+    { provide: TOASTR_TOKEN, useValue: toastr },
+    { provide: JQ_TOKEN, useValue: $ },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

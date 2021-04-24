@@ -4,7 +4,7 @@
     <app-collapsible-well>
       <div slot="title">
         {{session.name}}
-        <i *ngif="session.voters.length > 3"
+        <i *ngIf="session.voters.length > 3"
            class="glyphicon glyphicon-fire"
            style="color: red"></i>
       </div>
